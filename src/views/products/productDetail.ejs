@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include( '../partials/head') %>
+    
+    <body>
+    
+        <%- include('../partials/header') %>
+
+        <main>
+            <article class="prod-detail">
+                <div class="img-container">
+                    <% product.ImageProduct.forEach((img,i,arr) => { %>
+                        <% if( i == 0 ){ %>
+                            <div class="img-principal">
+                                <img src = "/images/products/<%=img.urlName%> ">
+                            </div>
+        
+                            <div class="slider-buttons-container"> 
+                                <div class="items"> 
+                                    <a href="#"><i class="fas fa-chevron-left"></i></a>
+                                </div>
+                                <div class="items">
+                                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                                </div> 
+                            </div>
+                        <% }else{ %>
+                            <div class="img-sec">
+                                <img src = "/images/products/<%=img.urlName%>">
+                            </div>    
+                        <% } %> 
+                    <% }); %> 
+                </div>
+
+                <div class="product-description">
+                    <p class="nombre-prod"> <%= product.name %>  </p>
+
+                    <div class="stars">
+                        <div class="score">
+                            <% for( let index = 1; index <= 5; index++ ) { %>
+                                <% if (index <= product.idStar) { %>
+                                    <i class="far fa-star" style="color: #d4b073;"></i>
+                                 
+                                <% }else { %>
+                                    <i class="far fa-star"></i>
+                                <% } %> 
+                            <% } %> 
+
+                        </div>
+                        <% if(product.idStar == 1){ %>
+                            <p>0 Reviews </p>  
+                        <%}else{ %> 
+                            <p> 127437 Reviews </p>
+                        <%} %> 
+                    </div>
+
+                    <p class="precio"> $<%= product.price %>  </p>
+                    
+                    <form action="/products/<%= product.id %>/prodCart" method="POST" class="FormCarrito">
+                    
+                        <div class="color"> 
+                            <% product.Colours.forEach(color=>{ %>
+                                <div class="check-c-s">
+                                    <input class="chk pCol" type="checkbox" value="<%=color.id%>" name="color" id="colour<%=color.id%>">
+                                    <label class="lbl" for = "colour<%=color.id%>">
+                                        <img src = "/images/colores/<%=color.urlColour%>.jpg">
+                                    </label> 
+                                </div>
+                                <div class="text-danger"></div>
+                            <% }) %> 
+                        </div> 
+
+                        <div class="size">
+                            <% product.Sizes.forEach(size=>{ %>
+                                <div class="check-size">
+                                    <input class="chk pSize" type="checkbox" value="<%=size.id%>" name="sizes" id ="size<%=size.id%>">                                        
+                                    <label class="lbl" for = "size<%=size.id%>"> <%=size.name%> </label> 
+                                </div> 
+                            <% }) %> 
+                            <div class="text-danger"></div>
+                        </div>
+                        
+
+                        <div class="cantidad">
+                            <% if (user && user.idRoles != 1) { %>
+                                <label for="cant">
+                                Cantidad: 
+                                </label>
+                                <input class="pCant" type="number" id="cant" name="cant" min="1" value="1">
+                                <button type="submit" class="style-button">Agregar al carrito</button>
+                            <% } %>
+                        </div>
+                    </form>
+                    <div class="locales">
+                        <a href="/locals">Ver locales donde esta disponible el producto</a>
+                    </div>   
+
+                    <div class = "description">
+                        <p class="title"> Descripción:</p>
+
+                        <p class="content"> <%= product.description %> 
+                        </p>
+                    </div>
+                    <% if (user &&  user.idRoles == 1) { %>
+                        <div class="Botones"> 
+                            <form action="/products/<%=product.id%>/edit"style="display: inline-flex" class="delete">
+                                <button type="submit" class="style-button">Editar producto</button>
+                            </form>
+                            <form action="/products/<%= product.id %>?_method=DELETE" method="POST" style="display: inline-flex" class="delete">
+                                <button type="submit" class="action-button delete style-button">ELIMINAR</button>
+                            </form>
+                        </div>
+                    <% } %>
+                    
+                </div> 
+            </article>
+
+            <div class="title-recom">
+                <p class= "title-recom"> Tambien te puede gustar </p>
+            </div>
+            <div class="Recomendaciones">
+                <% prods.forEach(prod=>{%>
+                    <article>
+                        <a href="/products/<%= prod.id  %>">
+                            <img src = "/images/products/<%= prod.ImageProduct[0].urlName %>">
+                        </a>
+                        <p class="name"><%= prod.name %> </p>
+                        <p class="category"><%= prod.Styles.name %> </p>    
+                        <p class="price">$<%= prod.price %> </p>
+                    </article>
+                <% }) %> 
+            </div>
+        </main>
+        <script src="/js/prodDetail.js"></script>
+        <%- include('../partials/footer') %> 
+    </body>
+</html>

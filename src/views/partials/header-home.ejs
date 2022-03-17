@@ -1,0 +1,93 @@
+<header>
+    <div class="container">
+        <div class="header-container">
+
+            <div class="logo-container">
+                <a href="/"><img src="/images/Logo4.svg" alt="logo de LSKV" class="logo"></a>
+            </div>
+            
+            <div class="burger-menu">
+                <a href = "#"><i class="fa fa-bars burger"></i></a>
+            </div>
+
+            <div class="buscador">
+                <form action="products/search" method="GET">
+                    <div class="contenedorCategory">
+                        <select name="category" id="category" style="width: 72px;"> 
+                            <option value = 0>
+                                Categoria
+                            </option>
+                            <% categories.forEach(cate=>{ %> 
+                                <option value = <%=cate.id%>>
+                                    <%= cate.name %>
+                                </option>
+                               <% }) %> 
+                        </select>
+                    </div>
+
+                    <div class="contenedorStyle">
+                        <select name="style" id="style">
+                            <option value = 0>
+                                Estilo 
+                            </option>
+                            <% styles.forEach(st=>{ %> 
+                                <option value=<%= st.id %>>
+                                    <%= st.name %>
+                                </option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <input type="text" name="search" placeholder="Buscar productos, marcas y más">
+                    <button type="submit" ><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+            <div class="login-home">
+                <% if (user){ %>
+                    <% if(user.idRoles == 0){ %>  
+                <a href="/products/productCart"><i class="fas fa-shopping-bag"></i></a>
+                    <% } %> 
+                <% }else{ %> 
+                    <a href="/products/productCart"><i class="fas fa-shopping-bag"></i></a>
+                <% } %> 
+                <% if (user) { %> 
+                    <a href="/users/<%= user.id %> "><i class="fas fa-user"></i></a>
+                <% } %> 
+                    
+            </div>
+        </div>
+        <div class="buscador2">
+            <form action="/search" method="GET" >
+                <input type="text" name="busqueda" placeholder="¿Qué buscas?">
+                <button type="submit" ><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <nav class="nav-container">
+            <div class = "list-container">
+                <ul class="list-home">
+                    <li><a href="/products">Productos</a></li>
+                    <% if (user && user.idRoles == 1) { %>
+                        <li><a href="/products/create">Crear producto</a></li>
+                    <% } %>
+                    <li><a href="/locals">Locales</a></li>
+                    <li><a href="/empresa">Empresa</a></li>
+                    <li><a href="/contact">Contacto</a></li>
+                </ul>
+            </div>
+    
+            <div class = "IngresarRegistrarse">
+                <% if (!user) { %> 
+                    <ul class="list-user">
+                        <li><a href="/users/login">Ingresar</a></li>
+                        <li> / </li>
+                        <li><a href="/users/register">Registrarse</a></li>
+                    </ul>
+                <% } else { %>
+                    <ul class="list-user">
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                <% } %>
+            </div>
+        </nav>
+    </div>
+</header>

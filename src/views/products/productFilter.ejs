@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include( '../partials/head') %>
+    <body>
+        <%- include('../partials/header') %>
+        <main class="productList">
+            <h2 class="title2"> Lista de productos filtrados por:  
+                <% Filtros.forEach((e,i,a) => { %> 
+                <% if (i == a.length - 1){ %>
+                    <%= e.name %>
+                <%}else { %>
+                    <%=  e.name + " y "  %>
+                <%}});%> 
+            </h2>
+            
+            <section class="products">
+                    <% productList.forEach(element => { %>
+                            <article>
+                                <a href="/products/<%= element.id  %>"><img src="/images/products/<%= element.ImageProduct[0].urlName %>"></a>
+                                <div class="descripcion">
+                                <h4> <%= element.name %> </h4>   
+                                <% if(Filtros.length == 1 ){ %> 
+                                    <p class="cat"> <%= element.category.name %> </p>
+                                <% }else {%>
+                                    <p class="cat"> <%= element.Styles.name %> </p>
+                                <% } %> 
+                                <p class="precio">$<%= element.price %> </p>
+
+                                </div>
+                            </article>
+
+                    <% }) %>
+            </section>
+        </main>
+        <%- include('../partials/footer') %> 
+    </body>    
+</html>
