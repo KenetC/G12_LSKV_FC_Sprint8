@@ -84,7 +84,7 @@ const productAPIController = {
                 });
                 let images = []; 
                 product.ImageProduct.forEach(img=>{
-                    images.push(`/images/${img.urlName}`);
+                    images.push(`/images/products/${img.urlName}`);
                 });
                 let response = {
                     meta: {

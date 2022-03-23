@@ -27,8 +27,10 @@ app.use('/users', usersRoutes);
 
 // Routers de la API 
 const productsAPIRouter = require('./routers/api/products');
+const usersAPIRouter = require('./routers/api/users');
 
 app.use('/api/products',productsAPIRouter);
+app.use('/api/users',usersAPIRouter);
 
 app.use( (req,res,next)=>{
     res.status(404).render('not-found');
