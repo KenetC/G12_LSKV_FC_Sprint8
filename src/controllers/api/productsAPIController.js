@@ -10,7 +10,8 @@ const productAPIController = {
                 {association: 'Sizes'},
                 {association: 'Styles'}, 
                 {association: 'Colours'},
-                {association: 'category'}
+                {association: 'category'}, 
+                {association: 'ImageProduct'}
                 ]
             });
             let categories = await db.Categories.findAll({
@@ -52,6 +53,7 @@ const productAPIController = {
                     color: [],
                     size: [],
                     style: product.Styles.name,
+                    img: product.ImageProduct[0].urlName,
                     details: req.headers.host + `/api/products/${product.id}`
                 });
                 products[index].Colours.forEach(color=>{
