@@ -57,7 +57,7 @@ const productAPIController = {
                     details: req.headers.host + `/api/products/${product.id}`
                 });
                 products[index].Colours.forEach(color=>{
-                    response.data.list[index].color.push(color.name);
+                    response.data.list[index].color.push(color.urlColour);
                 });
                 products[index].Sizes.forEach(size=>{
                     response.data.list[index].size.push(size.name);
