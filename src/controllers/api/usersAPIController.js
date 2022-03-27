@@ -6,7 +6,10 @@ const usersAPIController = {
     list: async (req, res)=>{
         try{
             let users = await db.Users.findAll({
-                include:['roles']
+                include: [
+                    {association: 'roles'},
+                    {association: 'image_users'},
+                    ]
             }); 
 
             let response = {
@@ -28,7 +31,7 @@ const usersAPIController = {
                     email: user.email, 
                     DNI: user.dni, 
                     date_of_birth: user.date_of_birth, 
-                    //Role: user.roles.state,
+                    avatar:  user.image_users[0].url_name,
                     detail: req.headers.host + `/api/users/${user.id}`
                 });
             });
