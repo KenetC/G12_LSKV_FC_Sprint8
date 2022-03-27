@@ -78,7 +78,7 @@ const productAPIController = {
             .then(product =>{ 
                 let colours = [];
                 product.Colours.forEach(color=>{
-                    colours.push(color.name);
+                    colours.push(color.urlColour);
                 });
                 let sizes = []; 
                 product.Sizes.forEach(size=>{
