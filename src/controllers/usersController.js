@@ -11,6 +11,7 @@ const usersController = {
     login: function(req,res) {
 		res.render('users/login')
     },
+
     session: function (req,res){
 		const resultValidation = validationResult(req);
 		log('Resultados de Validacion BACK')
@@ -43,11 +44,11 @@ const usersController = {
 			return res.render("users/login", {errors: resultValidation.errors})
 		}
 	},
-
+	
     register: function(req,res) {
         return res.render("users/register");
     },
-	
+
 	store: function(req, res){
 		const resultValidation = validationResult(req);
 		log('Aca va el file: ');
@@ -96,7 +97,17 @@ const usersController = {
 		db.Users.destroy({where: {id:req.params.id}})
 		db.Image_users.findOne({where:{idUsers:req.params.id}})
 		.then(imgU=>{
-			if( String(imgU.url_name) != "default.png" ) fs.unlinkSync(path.join(__dirname,`../../public/images/users/${imgU.url_name}`))
+			if( String(imgU.url_name) != "default.png" ){
+				fs.unlink(path.join(__dirname,`../../public/images/users/${imgU.url_name}`),(err=>{
+					if(err) log(err);
+					else{ 
+						console.log("\nDeleted file: example_file.txt");
+						// Get the files in current directory
+						// after deletion
+						getFilesInDirectory();
+					}
+				})); 
+			} 
 			db.Image_users.destroy({where: {idUsers:req.params.id}})
 			return res.redirect('/users');
 		})
@@ -120,9 +131,9 @@ const usersController = {
 			})
 		.then(user=>{
 			let f = user.date_of_birth; 
-			let day = String(f.getDate()+1).length > 1 ? `${f.getDate()+1}` : `0${f.getDate()+1}`; 
+			let day = String(f.getDate()).length > 1 ? `${f.getDate()}` : `0${f.getDate()}`; 
 			let month = String(f.getMonth()+1).length > 1 ? `${f.getMonth()+1}` : `0${f.getMonth()+1}`; 
-			let year = String(f.getFullYear()+1).length > 1 ? `${f.getFullYear()+1}` : `0${f.getFullYear()+1}`; 
+			let year = String(f.getFullYear()).length > 1 ? `${f.getFullYear()}` : `0${f.getFullYear()}`; 
 			let fecha = `${year}-${month}-${day}`;
 			log('fecha', fecha)
 			return res.render(`users/usuario`,{ element : user, fecha})
@@ -137,9 +148,9 @@ const usersController = {
 			})
 		.then(user=>{
 			let f = user.date_of_birth; 
-			let day = String(f.getDate()+1).length > 1 ? `${f.getDate()+1}` : `0${f.getDate()+1}`; 
+			let day = String(f.getDate()).length > 1 ? `${f.getDate()}` : `0${f.getDate()}`; 
 			let month = String(f.getMonth()+1).length > 1 ? `${f.getMonth()+1}` : `0${f.getMonth()+1}`; 
-			let year = String(f.getFullYear()+1).length > 1 ? `${f.getFullYear()+1}` : `0${f.getFullYear()+1}`; 
+			let year = String(f.getFullYear()).length > 1 ? `${f.getFullYear()}` : `0${f.getFullYear()}`; 
 
 			let fecha = `${year}-${month}-${day}`;
 			log('fecha', fecha)
@@ -194,7 +205,17 @@ const usersController = {
 					},{
 						where:{idUsers : req.params.id}
 					})
-					if( String(img.url_name) != "default.png" ) fs.unlinkSync(path.join(__dirname,`../../public/images/users/${img.url_name}`)); 
+					if( String(img.url_name) != "default.png" ){
+						fs.unlink(path.join(__dirname,`../../public/images/users/${img.url_name}`),(err=>{
+							if(err) log(err);
+							else{ 
+								console.log("\nDeleted file: example_file.txt");
+								// Get the files in current directory
+								// after deletion
+								getFilesInDirectory();
+							}
+						})); 
+					} 
 				}else if(req.body['img-default'] == 'on' ){
 					log('Entre al else')
 					db.Image_users.update({

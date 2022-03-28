@@ -6,16 +6,15 @@ var upload = require('../middlewares/img-products');
 
 const productController = require('../controllers/productController');
 const validatorProd = require('../middlewares/product-validator');
+const validatorEditProd = require('../middlewares/product-edit-validator');
 
 router.get('/', productController.list);
 
 router.get('/create',productController.create);
 router.post('/',upload.fields([{name: 'image'},{name: 'images'}]), validatorProd, productController.store);
 
-//category, style, search
 router.get('/search', productController.search);
 
-//Mediante res.query
 router.get('/filter', productController.filter);
 
 router.post('/:id/prodCart',productController.prodCart)
@@ -27,7 +26,7 @@ router.get('/productCart4',productController.prodCart4 );
 
 router.get('/:productId', productController.prodDetail );
 
-router.put("/:id/edit",upload.fields([{name: 'image'},{name: 'images'}]), productController.prodEdition);
+router.put("/:id/edit",upload.fields([{name: 'image'},{name: 'images'}]),validatorEditProd, productController.prodEdition);
 router.get("/:id/edit", productController.edition);
 
 router.delete('/:id', productController.destroy);
