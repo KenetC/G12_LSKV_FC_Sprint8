@@ -17,6 +17,9 @@ const productAPIController = {
             let categories = await db.Categories.findAll({
                 include: ['products']
             });
+            let styles = await db.Styles.findAll({
+                include: ['Products']
+            });
           
             //Cuento los productos por categoría
             let countByCategory = {
@@ -30,12 +33,26 @@ const productAPIController = {
                 Pantalones: categories[7].products.length  
             }
             
+            //Cuento los productos por styles
+            let countByStyle = {
+                Casual : styles[0].Products.length , 
+                Trendy: styles[1].Products.length,
+                Minimalista: styles[2].Products.length, 
+                Hipster: styles[3].Products.length
+            }
+
+            let countOfCategories = categories.length;
+            let countOfStyles = styles.length;
+
             // API que reemplaza a la funcion normal
             let response = {
                 meta: {
                     status : 200,
                     count: products.length,
                     countByCategory: countByCategory,
+                    countByStyle: countByStyle,
+                    countOfCategories: countOfCategories,
+                    countOfStyles: countOfStyles,
                     url: '/api/products'
                 },
                 data: {
