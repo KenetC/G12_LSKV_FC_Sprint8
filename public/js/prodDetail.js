@@ -66,9 +66,9 @@ window.addEventListener("load", function(){
 
         let carrito = {col,siz,can:cant.value,name,price}
 
-        console.log(carrito)
+        //console.log(carrito)
 
-        localStorage.setItem('carrito',JSON.stringify(carrito));//Cambiar a json el objeto 
+        //localStorage.setItem('carrito',JSON.stringify(carrito));//Cambiar a json el objeto 
         // let Store=JSON.parse(localStorage.getItem('carrito'))//obtener el objeto de LocalStorage
 
     })

@@ -983,7 +983,7 @@ form div.color,
 form div.size{
     display: flex;
     flex-direction: row;
-    width: 400px;
+    /*width: 400px;*/
 }
 
 form div.color label,
