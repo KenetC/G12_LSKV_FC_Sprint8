@@ -14,13 +14,7 @@ window.addEventListener("load", function(){
            log('Entre en email')
        }
 
-      // emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
-   // if (emailRegex.test(email.value)) {
-      
-    //} else {
-      //emailError.innerText = "Ingrese un correo valido";
-    //}
+       
    });
 
    let passError = document.querySelector('div.text-danger-password');
@@ -28,9 +22,9 @@ window.addEventListener("load", function(){
    let err = undefined;
    password.addEventListener("blur", function(e){ 
       if(password.value == ""){ 
-         err = "Debes escribir una contraseña";
+         err = "Debe escribir una contraseña";
       }else if(password.value.length < 6){ 
-         err = "Debes escribir al menos 6 caracteres";
+         err = "Debe escribir almenos 6 caracteres";
       }else err ="";
       if(err != undefined) { 
          passError.innerHTML = "<p>" + err + "</p>";
