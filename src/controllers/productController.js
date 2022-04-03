@@ -379,7 +379,7 @@ const productController = {
         }else if(query.category == 0 && query.style == 0){ 
         // CASO AMBOS NULOS 
             try{
-                let pros = await  db.Products.findAll({
+                let prods = await  db.Products.findAll({
                     where:{
                         name: {[Op.like]: "%" + req.query.search + "%"}
                     },
