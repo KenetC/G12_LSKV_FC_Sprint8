@@ -65,8 +65,7 @@
                                         <img src = "/images/colores/<%=color.urlColour%>.jpg">
                                     </label> 
                                 </div>
-                                
-                            <% }) %> 
+                            <% }) %>
                             <div class="text-danger"></div>
                         </div> 
 
@@ -122,7 +121,7 @@
                 <% prods.forEach(prod=>{%>
                     <article>
                         <a href="/products/<%= prod.id  %>">
-                            <img src = "/images/products/<%= prod.ImageProduct[0].urlName %>">
+                            <img src = "/images/products/<%= prod.ImageProduct[0].urlName %>" width="100px" height="250px">
                         </a>
                         <p class="name"><%= prod.name %> </p>
                         <p class="category"><%= prod.Styles.name %> </p>    
