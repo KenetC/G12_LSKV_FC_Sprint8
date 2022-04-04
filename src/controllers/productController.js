@@ -249,20 +249,24 @@ const productController = {
                     .catch(err=>log(err)); 
                     })
                 })
-                imgSecArray.forEach( async imgSec=>{
-                    log('ID Img a Eliminar',imgSec);
-                    let imgS = await db.Image_product.findByPk(imgSec)
-                    fs.unlink(path.join(__dirname,`../../public/images/products/${imgS.urlName}`),(err=>{
-                        if(err) {
-                            log('Eliminacion de imgs Sec:',err);
-                        }else{ 
-                            console.log("\nDeleted file: example_file.txt");
-                        }
-                    }))
-                    db.Image_product.destroy({where:{
-                        id:imgSec
-                    }})
-                })
+                if(imgSecArray != undefined || imgSecArray.length > 0){
+                    
+                    imgSecArray.forEach( async imgSec=>{
+                        log('ID Img a Eliminar',imgSec);
+                        let imgS = await db.Image_product.findByPk(imgSec)
+                        fs.unlink(path.join(__dirname,`../../public/images/products/${imgS.urlName}`),(err=>{
+                            if(err) {
+                                log('Eliminacion de imgs Sec:',err);
+                            }else{ 
+                                console.log("\nDeleted file: example_file.txt");
+                            }
+                        }))
+                        db.Image_product.destroy({where:{
+                            id:imgSec
+                        }})
+                    })
+                }
+                
                 filenamesImgSec.forEach(img=>{
                     db.Image_product.create({
                         urlName: img,
